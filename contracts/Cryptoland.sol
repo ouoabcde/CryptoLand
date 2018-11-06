@@ -75,9 +75,11 @@ is ERC721Full, ERC721Mintable, ERC721MetadataMintable, ERC721Burnable, Ownable {
     return string(s);
   }
 
-  function setTokenURI(uint256 tokenId, string uri) public
-  onlyMinter
-  returns (bool) {
+  function setTokenURI(uint256 tokenId, string uri)
+    public
+    onlyMinter
+    returns (bool)
+  {
     _setTokenURI(tokenId, uri);
 
     return true;
