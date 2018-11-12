@@ -40,7 +40,7 @@ is ERC721Full, ERC721Mintable, ERC721MetadataMintable, ERC721Burnable, Ownable {
 
     for (uint tokenId = totalNum; tokenId < (howMany + totalNum); tokenId++) {
       _mint(to, tokenId);
-      _setTokenURI(tokenId, concat(tokenURI, uintToString(tokenId)));
+      _setTokenURI(tokenId, concat(tokenURI, uint2str(tokenId)));
     }
 
     emit MintManyToken(to, howMany, totalNum, tokenId);
@@ -59,20 +59,21 @@ is ERC721Full, ERC721Mintable, ERC721MetadataMintable, ERC721Burnable, Ownable {
     return string(bytes_c);
   }
 
-  function uintToString(uint v) constant returns (string) {
-    uint maxlength = 100;
-    bytes memory reversed = new bytes(maxlength);
-    uint i = 0;
-    while (v != 0) {
-      uint remainder = v % 10;
-      v = v / 10;
-      reversed[i++] = byte(48 + remainder);
+  function uint2str(uint i) public pure returns (string){
+    if (i == 0) return "0";
+    uint j = i;
+    uint length;
+    while (j != 0){
+        length++;
+        j /= 10;
     }
-    bytes memory s = new bytes(i + 1);
-    for (uint j = 0; j <= i; j++) {
-      s[j] = reversed[i - j];
+    bytes memory bstr = new bytes(length);
+    uint k = length - 1;
+    while (i != 0){
+        bstr[k--] = byte(48 + i % 10);
+        i /= 10;
     }
-    return string(s);
+    return string(bstr);
   }
 
   function setTokenURI(uint256 tokenId, string uri)
