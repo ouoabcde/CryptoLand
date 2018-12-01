@@ -1,5 +1,5 @@
-const CryptoLand = artifacts.require("./Cryptoland.sol");
+const CryptoMus = artifacts.require("./CryptoMus.sol");
 
 module.exports = function(deployer) {
-    deployer.deploy(CryptoLand);
+    deployer.deploy(CryptoMus);
 }
